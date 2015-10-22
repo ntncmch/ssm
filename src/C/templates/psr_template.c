@@ -5,8 +5,8 @@
 /**
  * Alloc memory for the psr implementation
  */
-void ssm_psr_new(ssm_calc_t *calc)
-{
+ void ssm_psr_new(ssm_calc_t *calc)
+ {
     unsigned int *tab = ssm_u1_new({{ alloc|length }});
 
     /*automaticaly generated code: dimension of prob and inc*/
@@ -30,8 +30,8 @@ void ssm_psr_free(ssm_calc_t *calc)
 /**
  * stepping functions for Poisson System with stochastic rates (psr)
  */
-void ssm_step_psr(ssm_X_t *p_X, double t, ssm_par_t *par, ssm_nav_t *nav, ssm_calc_t *calc)
-{
+ void ssm_step_psr(ssm_X_t *p_X, double t, ssm_par_t *par, ssm_nav_t *nav, ssm_calc_t *calc)
+ {
 
     double *X = p_X->proj;
     double dt = p_X->dt;
