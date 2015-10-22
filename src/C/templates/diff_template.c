@@ -4,23 +4,23 @@
 
 void ssm_compute_diff(ssm_X_t *p_X, ssm_par_t *par, ssm_nav_t *nav, ssm_calc_t *calc)
 {
-    {% if diff.terms|length %}
+    {% if diff.n_diffs %}
 
     int i;
     int n_browns = {{ diff.n_browns}};
     ssm_it_states_t *it = nav->states_diff;
 
     double dt = p_X->dt;
-
+    double sqrt_dt = sqrt(dt);
     
     double _w[n_browns];
     for(i=0; i<n_browns; i++){
-	_w[i] = gsl_ran_ugaussian(calc->randgsl);
+        _w[i] = gsl_ran_ugaussian(calc->randgsl);
     }
 
-    {% for eq in diff.terms %}
-    p_X->proj[it->p[{{ loop.index0 }}]->offset] += sqrt(dt)*({{ eq }});{% endfor %}
-
+    {% for i in range(diff.n_diffs) %}
+    p_X->proj[it->p[{{ loop.index0 }}]->offset] += dt*({{ diff.drift_terms[i] }}) + sqrt_dt*({{ diff.dispersion_terms[i] }});
+    {% endfor %}
 
     {% endif %}
 }

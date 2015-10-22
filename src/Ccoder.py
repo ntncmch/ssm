@@ -550,17 +550,30 @@ class Ccoder(Cmodel):
     def compute_diff(self):
 
         sde = self.model.get('sde',{})
-        if sde and 'dispersion' in sde:
+        if sde and ('drift' in sde or 'dispersion' in sde):
+            
+            drift =  sde['drift']
             dispersion = sde['dispersion']
+            
             diff = {}
-            diff['terms'] = []
+            diff['drift_terms'] = []
+            diff['dispersion_terms'] = []
+            diff['n_diffs'] = len(drift)
             diff['n_browns'] = len(dispersion[0])
+            
+            for x in drift:
+                diff['drift_terms'].append(self.make_C_term(str(x['f']), True))
+
+                # the problem is in make_C_term -> generator_C -> toC
+                # if we
+
             for x in dispersion:
                 term = ''
                 for i, y in enumerate(x):
                     if y:
                         term += (' + ' if term else '') + self.make_C_term(y, True) + ' * _w[{0}]'.format(i)
-                diff['terms'].append(term)
+                diff['dispersion_terms'].append(term)
+
             return diff
 
         else:

@@ -57,10 +57,10 @@
 
   "sde": {
     "drift": [
-      {"name": "r0", "f": 1.0}
+      {"name": "r0", "f": "r0"}
     ],
     "dispersion":[
-      ["vol"]
+      ["vol*r0"]
     ]
   },
 
