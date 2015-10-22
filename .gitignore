@@ -33,5 +33,5 @@ ssmtest
 *.sublime-workspace
 
 # binaries (e.g. examples)
-**/bin
+examples/**/bin
 
