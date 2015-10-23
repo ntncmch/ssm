@@ -10,6 +10,14 @@ void ssm_compute_diff(ssm_X_t *p_X, ssm_par_t *par, ssm_nav_t *nav, ssm_calc_t *
     int n_browns = {{ diff.n_browns}};
     ssm_it_states_t *it = nav->states_diff;
 
+    double diffed[it->length];
+    double *X = p_X->proj;
+
+    for(i=0; i<it->length; i++){
+        ssm_state_t *p = it->p[i];
+        diffed[i] = p->f_inv(X[p->offset]);
+    }
+
     double dt = p_X->dt;
     double sqrt_dt = sqrt(dt);
     

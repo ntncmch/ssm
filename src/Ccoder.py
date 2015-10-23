@@ -560,12 +560,9 @@ class Ccoder(Cmodel):
             diff['dispersion_terms'] = []
             diff['n_diffs'] = len(drift)
             diff['n_browns'] = len(dispersion[0])
-            
+
             for x in drift:
                 diff['drift_terms'].append(self.make_C_term(str(x['f']), True))
-
-                # the problem is in make_C_term -> generator_C -> toC
-                # if we
 
             for x in dispersion:
                 term = ''
