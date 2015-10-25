@@ -834,7 +834,7 @@ ssm_it_parameters_t *ssm_it_parameters_icdiff_new(ssm_parameter_t **parameters);
 ssm_observed_t **_ssm_observed_new(int *observed_length);
 
 /* diff_template.c */
-void ssm_compute_diff(ssm_X_t *p_X, ssm_par_t *par, ssm_nav_t *nav, ssm_calc_t *calc);
+void ssm_compute_diff(ssm_X_t *p_X, double t, ssm_par_t *par, ssm_nav_t *nav, ssm_calc_t *calc);
 
 /* ode_sde_template.c */
 int ssm_step_ode(double t, const double X[], double f[], void *params);

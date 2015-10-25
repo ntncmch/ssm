@@ -188,7 +188,7 @@ ssm_err_code_t ssm_f_prediction_sde_no_dem_sto_no_white_noise(ssm_X_t *p_X, doub
 
     while (t < t1) {
         ssm_step_sde_no_dem_sto_no_white_noise(p_X, t, par, nav, calc);
-        ssm_compute_diff(p_X, par, nav, calc);
+        ssm_compute_diff(p_X, t, par, nav, calc);
         t += p_X->dt;
     }
 
@@ -226,7 +226,7 @@ ssm_err_code_t ssm_f_prediction_sde_no_dem_sto(ssm_X_t *p_X, double t0, double t
 
     while (t < t1) {
         ssm_step_sde_no_dem_sto(p_X, t, par, nav, calc);
-        ssm_compute_diff(p_X, par, nav, calc);
+        ssm_compute_diff(p_X, t, par, nav, calc);
         t += p_X->dt;
     }
     return ssm_check_no_neg_sv_or_remainder(p_X, par, nav, calc, t1);
@@ -239,7 +239,7 @@ ssm_err_code_t ssm_f_prediction_sde_no_white_noise(ssm_X_t *p_X, double t0, doub
 
     while (t < t1) {
         ssm_step_sde_no_white_noise(p_X, t, par, nav, calc);
-        ssm_compute_diff(p_X, par, nav, calc);
+        ssm_compute_diff(p_X, t, par, nav, calc);
         t += p_X->dt;
     }
     return ssm_check_no_neg_sv_or_remainder(p_X, par, nav, calc, t1);
@@ -262,7 +262,7 @@ ssm_err_code_t ssm_f_prediction_sde_full(ssm_X_t *p_X, double t0, double t1, ssm
 
     while (t < t1) {
         ssm_step_sde_full(p_X, t, par, nav, calc);
-        ssm_compute_diff(p_X, par, nav, calc);
+        ssm_compute_diff(p_X, t, par, nav, calc);
         t += p_X->dt;
     }
     return ssm_check_no_neg_sv_or_remainder(p_X, par, nav, calc, t1);
@@ -275,7 +275,7 @@ ssm_err_code_t ssm_f_prediction_psr(ssm_X_t *p_X, double t0, double t1, ssm_par_
 
     while (t < t1) {
         ssm_step_psr(p_X, t, par, nav, calc);
-        ssm_compute_diff(p_X, par, nav, calc);
+        ssm_compute_diff(p_X, t, par, nav, calc);
         t += p_X->dt;
     }
     return ssm_check_no_neg_sv_or_remainder(p_X, par, nav, calc, t1);

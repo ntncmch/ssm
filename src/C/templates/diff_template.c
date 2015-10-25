@@ -2,7 +2,7 @@
 
 {% block code %}
 
-void ssm_compute_diff(ssm_X_t *p_X, ssm_par_t *par, ssm_nav_t *nav, ssm_calc_t *calc)
+void ssm_compute_diff(ssm_X_t *p_X, double t, ssm_par_t *par, ssm_nav_t *nav, ssm_calc_t *calc)
 {
     {% if diff.n_diffs %}
 
