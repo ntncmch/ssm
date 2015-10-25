@@ -18,8 +18,8 @@ class TestCcoder(unittest.TestCase):
         del m_diff['reactions'][3]['white_noise']
         m_diff['sde'] = {
             'drift': [
-                {'name': 'r0_paris', 'f': 0.0, 'transformation': 'log(r0_paris)'},
-                {'name': 'r0_nyc', 'f': 0.0, 'transformation': 'log(r0_nyc)'}
+                {'name': 'r0_paris', "drift": 0.0, 'transformation': 'log(r0_paris)'},
+                {'name': 'r0_nyc', "drift": 0.0, 'transformation': 'log(r0_nyc)'}
             ],
             'dispertion': [['vol',0],[0,'vol']]
         }

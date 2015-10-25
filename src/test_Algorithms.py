@@ -395,7 +395,7 @@ class TestSMCSDEagainstKalman(unittest.TestCase):
 
             j["sde"] = {}
             j["sde"]["drift"] = []
-            j["sde"]["drift"].append({ "name": "r0", "f": 0.0})
+            j["sde"]["drift"].append({ "name": "r0", "drift": 0.0})
             j["sde"]["dispersion"] = [['vol']]
 
             with open(Root + '/../examples/noise_test/ssm.json','w') as outfile:
@@ -563,7 +563,7 @@ class TestpMCMCsmoothing(unittest.TestCase):
 
             j["sde"] = {}
             j["sde"]["drift"] = []
-            j["sde"]["drift"].append({ "name": "r0", "f": 0.0})
+            j["sde"]["drift"].append({ "name": "r0", "drift": 0.0})
             j["sde"]["dispersion"] = [['vol']]
 
             with open(Root + '/../examples/noise_test/ssm.json','w') as outfile:
@@ -767,7 +767,7 @@ class TestpMCMCsmoothingWithNaNs(unittest.TestCase):
 
             j["sde"] = {}
             j["sde"]["drift"] = []
-            j["sde"]["drift"].append({ "name": "r0", "f": 0.0})
+            j["sde"]["drift"].append({ "name": "r0", "drift": 0.0})
             j["sde"]["dispersion"] = [['vol']]
 
             with open(Root + '/../examples/noise_test/ssm.json','w') as outfile:

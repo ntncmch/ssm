@@ -562,7 +562,7 @@ class Ccoder(Cmodel):
             diff['n_browns'] = len(dispersion[0])
 
             for x in drift:
-                diff['drift_terms'].append(self.make_C_term(str(x['f']), True))
+                diff['drift_terms'].append(self.make_C_term(str(x['drift']), True))
 
             for x in dispersion:
                 term = ''
