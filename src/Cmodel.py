@@ -84,21 +84,25 @@ class Cmodel:
         self.par_forced = sorted(par_forced)
 
         #par_sv and par_inc (incidence)
-        par_sv = set()
-        par_inc = set()
+        par_sv = []
+        # par_inc: names of incidence variables for each accumulator / reaction couple, ordered as they get mentioned in the 
+        # reaction accumulators. May contain repetitions if several accumulators feed a given incidence variable.
+        # XXX: careful. Used to be sets, inplying no repetition. The problem is that order was unpredictible. Here we mantain the original order,
+        #      but we have duplicates. Make sure this doesn't have computational implications.
+        par_inc = []
 
         for r in reactions:
-            if r['from'] not in self.ur:
-                par_sv.add(r['from'])
-            if r['to'] not in self.ur:
-                par_sv.add(r['to'])
+            if r['from'] not in self.ur and r['from'] not in par_sv:
+                par_sv.append(r['from'])
+            if r['to'] not in self.ur and r['to'] not in par_sv:
+                par_sv.append(r['to'])
 
             if "accumulators" in r:
                 for inc in r['accumulators']:
-                    par_inc.add(inc)
+                    par_inc.append(inc)
 
-        self.par_sv = sorted(list(par_sv))
-        self.par_inc = sorted(list(par_inc))
+        self.par_sv = par_sv
+        self.par_inc = par_inc
 
         #par proc and par_noise
         par_proc = set()
@@ -220,6 +224,8 @@ class Cmodel:
                     self.obs_model[i][x] = ''.join(map(resolve_remainder, self.change_user_input(self.obs_model[i][x])))
 
         ## incidence def
+        # For each component of the observed variables (each accumulator), the array of definitions of all reactions
+        # feeding the same incidence variable. May contain repetitions of several accumulators feed the incidence variable.
         self.par_inc_def = []
         for inc in self.par_inc:
             self.par_inc_def.append([x for x in self.proc_model if "accumulators" in x and inc in x['accumulators'] ])
@@ -414,9 +420,11 @@ class Cmodel:
         else:
             pterm = sympify(safe)
 
+        custom_functions = { f: f for f in self.special_functions }
+
         #remove the ssm___ prefix
         #term = ccode(simplify(pterm)).replace('ssm___', '') ##NOTE simplify is just too slow to be used...
-        term = ccode(pterm).replace('ssm___', '')
+        term = ccode(pterm, user_functions=custom_functions).replace('ssm___', '')
 
         #make the ssm C expression
         return self.generator_C(term, no_correct_rate, force_par=force_par, xify=xify, human=human, set_t0=set_t0)

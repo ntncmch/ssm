@@ -603,6 +603,9 @@ class Ccoder(Cmodel):
                     odeDict[r['to']] += rate
 
         ##observed equations
+        # For each component of the incidence variables (each accumulator), the full reaction rate 
+        # (containing all terms feeding the same incidence variable). May contain repetitions of 
+        # several accumulators feed the incidence variable.
         obsList = []
 
         
